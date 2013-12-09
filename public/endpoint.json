@@ -1,0 +1,76 @@
+{
+    "name": "abandoned_carts",
+    "display": "Dotcom Distribution",
+    "description": "Tracking abandoned carts and generating cart:abandoned messages",
+    "help": "http://guides.spreecommerce.com/integration/abandoned_carts_integration.html",
+    "icon_url": "abandoned_carts.png",
+    "services": [
+        {
+            "name": "save_cart",
+            "path": "/save_cart",
+            "description": "Saves the cart details",
+            "requires": {
+                "parameters": [
+                    {
+                        "name": "api_key",
+                        "description": "API key",
+                        "data_type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "description": "password",
+                        "data_type": "password"
+                    }                   
+                ]
+            },
+            "recommends": {
+                "messages": ["cart:new", "cart:updated"]
+            },
+            "produces": {}
+        },
+        {
+            "name": "match_cart",
+            "path": "/match_cart",
+            "description": "Matching carts with new orders",
+            "requires": {
+                "parameters": [
+                    {
+                        "name": "api_key",
+                        "description": "API key",
+                        "data_type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "description": "password",
+                        "data_type": "string"
+                    }
+                ]
+            },
+            "recommends": {
+                "messages": ["order:new"]
+            }
+        },
+        {
+            "name": "abandon_carts",
+            "path": "/abandon_carts",
+            "description": "Tracking which carts are abandoned and generating abandoned cart messages",
+            "requires": {
+                "parameters": [
+                    {
+                        "name": "api_key",
+                        "description": "API key",
+                        "data_type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "description": "password",
+                        "data_type": "string"
+                    }
+                ]
+            },
+            "recommends": {
+                "messages": ["cart:abandoned"]
+            }
+        }        
+    ]
+}
