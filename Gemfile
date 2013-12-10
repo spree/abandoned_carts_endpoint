@@ -17,6 +17,7 @@ group :development do
 end
 
 group :test do
+  gem 'fabrication'
   gem 'rspec'
   gem 'webmock'
   gem 'guard-rspec'

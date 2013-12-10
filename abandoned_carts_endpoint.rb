@@ -2,15 +2,15 @@ Dir['./lib/**/*.rb'].each(&method(:require))
 
 class AbandonedCartsEndpoint < EndpointBase
   set :logging, true
-
+  
   Mongoid.load!("./config/mongoid.yml")
 
   post '/save_cart' do
     begin
-  	  cart = Cart.find_or_initiliaze_by(number: @message[:payload]['cart']['number'])
+  	  cart = Cart.find_or_initialize_by(number: @message[:payload]['cart']['number'])
       cart.attributes = { 
-        payload:       @message[:payload],
-        last_activity: @message[:payload]['cart']['updated_at']
+        payload:          @message[:payload],
+        last_activity_at: @message[:payload]['cart']['updated_at']
       }
       
       if cart.save

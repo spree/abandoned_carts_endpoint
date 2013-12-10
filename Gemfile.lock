@@ -39,6 +39,7 @@ GEM
     debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     dotenv (0.9.0)
+    fabrication (2.7.2)
     ffi (1.9.3)
     foreman (0.63.0)
       dotenv (>= 0.7)
@@ -141,6 +142,7 @@ DEPENDENCIES
   capistrano
   debugger
   endpoint_base!
+  fabrication
   foreman
   guard-rspec
   json
