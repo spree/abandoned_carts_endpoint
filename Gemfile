@@ -8,7 +8,7 @@ gem 'capistrano'
 
 gem 'json'
 gem 'nokogiri'
-gem 'mongoid'
+gem 'mongoid', '3.1.6'
 
 group :development do
   gem 'shotgun'
@@ -17,7 +17,6 @@ group :development do
 end
 
 group :test do
-  gem 'vcr', '2.6'
   gem 'rspec'
   gem 'webmock'
   gem 'guard-rspec'

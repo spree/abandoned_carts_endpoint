@@ -38,524 +38,190 @@ module Factories
       }
     end
 
-    def original
-      payload["original"]
-    end
-
-    def payload
+    def cart_new_payload
       {
-        "cart": {
-          "id": 1,
-          "number": "R123456789",
-          "item_total": "15.99",
-          "total": "6.6",
-          "ship_total": "5.0",
-          "state": "returned",
-          "adjustment_total": "-9.390000000000001",
-          "user_id": null,
-          "created_at": "2013-12-06T19:29:37.000Z",
-          "updated_at": "2013-12-06T21:08:13.000Z",
-          "completed_at": "2013-12-05T19:29:38.000Z",
-          "payment_total": "22.59",
-          "shipment_state": "shipped",
-          "payment_state": "credit_owed",
-          "email": "spree@example.com",
-          "special_instructions": null,
-          "token": "2b852a72058f9dc8",
-          "channel": "spree",
-          "currency": "USD",
-          "tax_total": "1.6",
-          "bill_address": {
-            "id": 2,
-            "firstname": "Kaden",
-            "lastname": "Steuber",
-            "full_name": "Kaden Steuber",
-            "address1": "322 Willow Flats",
-            "address2": "Suite 516",
-            "city": "Neilfurt",
-            "zipcode": "16804",
-            "phone": "544-044-4452 x10855",
-            "company": null,
-            "alternative_phone": null,
-            "country_id": 49,
-            "state_id": 48,
-            "state_name": null,
-            "country": {
-              "id": 49,
-              "iso_name": "UNITED STATES",
-              "iso": "US",
-              "iso3": "USA",
-              "name": "United States",
-              "numcode": 840
-            },
-            "state": {
-              "id": 48,
-              "name": "New York",
-              "abbr": "NY",
-              "country_id": 49
-            }
-          },
-          "ship_address": {
-            "id": 1,
-            "firstname": "Nick",
-            "lastname": "Harris",
-            "full_name": "Nick Harris",
-            "address1": "923 Schoen Pines",
-            "address2": "Apt. 946",
-            "city": "Birdieland",
-            "zipcode": "16804",
-            "phone": "865-711-4691",
-            "company": null,
-            "alternative_phone": null,
-            "country_id": 49,
-            "state_id": 48,
-            "state_name": null,
-            "country": {
-              "id": 49,
-              "iso_name": "UNITED STATES",
-              "iso": "US",
-              "iso3": "USA",
-              "name": "United States",
-              "numcode": 840
-            },
-            "state": {
-              "id": 48,
-              "name": "New York",
-              "abbr": "NY",
-              "country_id": 49
-            }
-          },
-          "line_items": [
+        "cart" => {
+          "id" => 5,
+          "number" => "R257883284",
+          "item_total" => "19.99",
+          "total" => "19.99",
+          "ship_total" => 0,
+          "state" => "cart",
+          "adjustment_total" => "0.0",
+          "user_id" => nil,
+          "created_at" => "2013-12-10T19:03:46.000Z",
+          "updated_at" => "2013-12-10T19:03:46.000Z",
+          "completed_at" => nil,
+          "payment_total" => "0.0",
+          "shipment_state" => nil,
+          "payment_state" => nil,
+          "email" => nil,
+          "special_instructions" => nil,
+          "token" => "4b9d4c16033c6d6c",
+          "channel" => "spree",
+          "currency" => "USD",
+          "tax_total" => 0,
+          "bill_address" => nil,
+          "ship_address" => nil,
+          "line_items" => [
             {
-              "id": 1,
-              "quantity": 1,
-              "price": "15.99",
-              "variant_id": 1,
-              "variant": {
-                "id": 1,
-                "name": "Ruby on Rails Tote",
-                "sku": "ROR-00011",
-                "price": "15.99",
-                "weight": null,
-                "height": null,
-                "width": null,
-                "depth": null,
-                "is_master": true,
-                "cost_price": "17.0",
-                "permalink": "ruby-on-rails-tote",
-                "options_text": "",
-                "option_values": [
+              "id" => 5,
+              "quantity" => 1,
+              "price" => "19.99",
+              "variant_id" => 5,
+              "variant" => {
+                "id" => 5,
+                "name" => "Ruby on Rails Ringer T-Shirt",
+                "sku" => "ROR-00015",
+                "price" => "19.99",
+                "weight" => nil,
+                "height" => nil,
+                "width" => nil,
+                "depth" => nil,
+                "is_master" => true,
+                "cost_price" => "17.0",
+                "permalink" => "ruby-on-rails-ringer-t-shirt",
+                "options_text" => "",
+                "option_values" => [
 
                 ],
-                "product_id": 1,
-                "images": [
+                "product_id" => 5,
+                "images" => [
                   {
-                    "id": 21,
-                    "position": 1,
-                    "attachment_content_type": "image/jpeg",
-                    "attachment_file_name": "ror_tote.jpeg",
-                    "type": "Spree::Image",
-                    "attachment_updated_at": "2013-12-06T19:29:22.000Z",
-                    "attachment_width": 360,
-                    "attachment_height": 360,
-                    "alt": null,
-                    "viewable_type": "Spree::Variant",
-                    "viewable_id": 1,
-                    "attachment_url": "/spree/products/21/product/ror_tote.jpeg?1386358162"
+                    "id" => 29,
+                    "position" => 1,
+                    "attachment_content_type" => "image/jpeg",
+                    "attachment_file_name" => "ror_ringer.jpeg",
+                    "type" => "Spree::Image",
+                    "attachment_updated_at" => "2013-12-06T19:29:27.000Z",
+                    "attachment_width" => 360,
+                    "attachment_height" => 360,
+                    "alt" => nil,
+                    "viewable_type" => "Spree::Variant",
+                    "viewable_id" => 5,
+                    "attachment_url" => "/spree/products/29/product/ror_ringer.jpeg?1386358167"
                   },
                   {
-                    "id": 22,
-                    "position": 2,
-                    "attachment_content_type": "image/jpeg",
-                    "attachment_file_name": "ror_tote_back.jpeg",
-                    "type": "Spree::Image",
-                    "attachment_updated_at": "2013-12-06T19:29:22.000Z",
-                    "attachment_width": 360,
-                    "attachment_height": 360,
-                    "alt": null,
-                    "viewable_type": "Spree::Variant",
-                    "viewable_id": 1,
-                    "attachment_url": "/spree/products/22/product/ror_tote_back.jpeg?1386358162"
+                    "id" => 30,
+                    "position" => 2,
+                    "attachment_content_type" => "image/jpeg",
+                    "attachment_file_name" => "ror_ringer_back.jpeg",
+                    "type" => "Spree::Image",
+                    "attachment_updated_at" => "2013-12-06T19:29:27.000Z",
+                    "attachment_width" => 360,
+                    "attachment_height" => 360,
+                    "alt" => nil,
+                    "viewable_type" => "Spree::Variant",
+                    "viewable_id" => 5,
+                    "attachment_url" => "/spree/products/30/product/ror_ringer_back.jpeg?1386358167"
                   }
                 ]
               }
             }
           ],
-          "payments": [
-            {
-              "id": 1,
-              "amount": "22.59",
-              "state": "completed",
-              "payment_method_id": 1,
-              "payment_method": {
-                "id": 1,
-                "name": "Credit Card",
-                "environment": "development"
-              }
-            }
+          "payments" => [
+
           ],
-          "shipments": [
-            {
-              "id": 1,
-              "tracking": null,
-              "number": "437516215",
-              "cost": "5.0",
-              "shipped_at": "2013-12-06T21:04:13.000Z",
-              "state": "shipped",
-              "order_id": "R123456789",
-              "stock_location_name": "default",
-              "shipping_rates": [
-                {
-                  "id": 1,
-                  "cost": "5.0",
-                  "selected": true,
-                  "shipment_id": 1,
-                  "shipping_method_id": 1
-                },
-                {
-                  "id": 2,
-                  "cost": "10.0",
-                  "selected": false,
-                  "shipment_id": 1,
-                  "shipping_method_id": 2
-                },
-                {
-                  "id": 3,
-                  "cost": "15.0",
-                  "selected": false,
-                  "shipment_id": 1,
-                  "shipping_method_id": 3
-                }
-              ],
-              "shipping_method": {
-                "name": "UPS Ground (USD)",
-                "tracking_url": null
-              },
-              "inventory_units": [
-                {
-                  "id": 1,
-                  "variant_id": 1,
-                  "state": "returned"
-                }
-              ]
-            }
+          "shipments" => [
+
           ],
-          "adjustments": [
-            {
-              "id": 1,
-              "amount": "0.8",
-              "label": "North America 5.0%",
-              "mandatory": false,
-              "eligible": true,
-              "originator_type": "Spree::TaxRate",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 3,
-              "amount": "5.0",
-              "label": "Shipping",
-              "mandatory": true,
-              "eligible": true,
-              "originator_type": "Spree::ShippingMethod",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 5,
-              "amount": "0.8",
-              "label": "Tax",
-              "mandatory": true,
-              "eligible": true,
-              "originator_type": "Spree::TaxRate",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 7,
-              "amount": "0.0",
-              "label": "Shipping",
-              "mandatory": true,
-              "eligible": true,
-              "originator_type": "Spree::ShippingMethod",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 13,
-              "amount": "-15.99",
-              "label": "RMA Credit",
-              "mandatory": null,
-              "eligible": true,
-              "originator_type": null,
-              "adjustable_type": "Spree::Order"
-            }
+          "adjustments" => [
+
           ],
-          "credit_cards": [
-            {
-              "id": 1,
-              "month": "12",
-              "year": "2014",
-              "cc_type": "visa",
-              "last_digits": "1111",
-              "first_name": "Sean",
-              "last_name": "Schofield",
-              "gateway_customer_profile_id": "BGS-1234",
-              "gateway_payment_profile_id": null
-            }
+          "credit_cards" => [
+
           ]
         },
-        "original": {
-          "id": 1,
-          "number": "R123456789",
-          "item_total": "15.99",
-          "total": "6.6",
-          "ship_total": "5.0",
-          "state": "returned",
-          "adjustment_total": "-9.390000000000001",
-          "user_id": null,
-          "created_at": "2013-12-06T19:29:37.000Z",
-          "updated_at": "2013-12-06T21:08:13.000Z",
-          "completed_at": "2013-12-05T19:29:38.000Z",
-          "payment_total": "22.59",
-          "shipment_state": "shipped",
-          "payment_state": "credit_owed",
-          "email": "spree@example.com",
-          "special_instructions": null,
-          "token": "2b852a72058f9dc8",
-          "channel": "spree",
-          "currency": "USD",
-          "tax_total": "1.6",
-          "bill_address": {
-            "id": 2,
-            "firstname": "Kaden",
-            "lastname": "Steuber",
-            "full_name": "Kaden Steuber",
-            "address1": "322 Willow Flats",
-            "address2": "Suite 516",
-            "city": "Neilfurt",
-            "zipcode": "16804",
-            "phone": "544-044-4452 x10855",
-            "company": null,
-            "alternative_phone": null,
-            "country_id": 49,
-            "state_id": 48,
-            "state_name": null,
-            "country": {
-              "id": 49,
-              "iso_name": "UNITED STATES",
-              "iso": "US",
-              "iso3": "USA",
-              "name": "United States",
-              "numcode": 840
-            },
-            "state": {
-              "id": 48,
-              "name": "New York",
-              "abbr": "NY",
-              "country_id": 49
-            }
-          },
-          "ship_address": {
-            "id": 1,
-            "firstname": "Nick",
-            "lastname": "Harris",
-            "full_name": "Nick Harris",
-            "address1": "923 Schoen Pines",
-            "address2": "Apt. 946",
-            "city": "Birdieland",
-            "zipcode": "16804",
-            "phone": "865-711-4691",
-            "company": null,
-            "alternative_phone": null,
-            "country_id": 49,
-            "state_id": 48,
-            "state_name": null,
-            "country": {
-              "id": 49,
-              "iso_name": "UNITED STATES",
-              "iso": "US",
-              "iso3": "USA",
-              "name": "United States",
-              "numcode": 840
-            },
-            "state": {
-              "id": 48,
-              "name": "New York",
-              "abbr": "NY",
-              "country_id": 49
-            }
-          },
-          "line_items": [
+        "original" => {
+          "id" => 5,
+          "number" => "R257883284",
+          "item_total" => "19.99",
+          "total" => "19.99",
+          "ship_total" => 0,
+          "state" => "cart",
+          "adjustment_total" => "0.0",
+          "user_id" => nil,
+          "created_at" => "2013-12-10T19:03:46.000Z",
+          "updated_at" => "2013-12-10T19:03:46.000Z",
+          "completed_at" => nil,
+          "payment_total" => "0.0",
+          "shipment_state" => nil,
+          "payment_state" => nil,
+          "email" => nil,
+          "special_instructions" => nil,
+          "token" => "4b9d4c16033c6d6c",
+          "channel" => "spree",
+          "currency" => "USD",
+          "tax_total" => 0,
+          "bill_address" => nil,
+          "ship_address" => nil,
+          "line_items" => [
             {
-              "id": 1,
-              "quantity": 1,
-              "price": "15.99",
-              "variant_id": 1,
-              "variant": {
-                "id": 1,
-                "name": "Ruby on Rails Tote",
-                "sku": "ROR-00011",
-                "price": "15.99",
-                "weight": null,
-                "height": null,
-                "width": null,
-                "depth": null,
-                "is_master": true,
-                "cost_price": "17.0",
-                "permalink": "ruby-on-rails-tote",
-                "options_text": "",
-                "option_values": [
+              "id" => 5,
+              "quantity" => 1,
+              "price" => "19.99",
+              "variant_id" => 5,
+              "variant" => {
+                "id" => 5,
+                "name" => "Ruby on Rails Ringer T-Shirt",
+                "sku" => "ROR-00015",
+                "price" => "19.99",
+                "weight" => nil,
+                "height" => nil,
+                "width" => nil,
+                "depth" => nil,
+                "is_master" => true,
+                "cost_price" => "17.0",
+                "permalink" => "ruby-on-rails-ringer-t-shirt",
+                "options_text" => "",
+                "option_values" => [
 
                 ],
-                "product_id": 1,
-                "images": [
+                "product_id" => 5,
+                "images" => [
                   {
-                    "id": 21,
-                    "position": 1,
-                    "attachment_content_type": "image/jpeg",
-                    "attachment_file_name": "ror_tote.jpeg",
-                    "type": "Spree::Image",
-                    "attachment_updated_at": "2013-12-06T19:29:22.000Z",
-                    "attachment_width": 360,
-                    "attachment_height": 360,
-                    "alt": null,
-                    "viewable_type": "Spree::Variant",
-                    "viewable_id": 1,
-                    "attachment_url": "/spree/products/21/product/ror_tote.jpeg?1386358162"
+                    "id" => 29,
+                    "position" => 1,
+                    "attachment_content_type" => "image/jpeg",
+                    "attachment_file_name" => "ror_ringer.jpeg",
+                    "type" => "Spree::Image",
+                    "attachment_updated_at" => "2013-12-06T19:29:27.000Z",
+                    "attachment_width" => 360,
+                    "attachment_height" => 360,
+                    "alt" => nil,
+                    "viewable_type" => "Spree::Variant",
+                    "viewable_id" => 5,
+                    "attachment_url" => "/spree/products/29/product/ror_ringer.jpeg?1386358167"
                   },
                   {
-                    "id": 22,
-                    "position": 2,
-                    "attachment_content_type": "image/jpeg",
-                    "attachment_file_name": "ror_tote_back.jpeg",
-                    "type": "Spree::Image",
-                    "attachment_updated_at": "2013-12-06T19:29:22.000Z",
-                    "attachment_width": 360,
-                    "attachment_height": 360,
-                    "alt": null,
-                    "viewable_type": "Spree::Variant",
-                    "viewable_id": 1,
-                    "attachment_url": "/spree/products/22/product/ror_tote_back.jpeg?1386358162"
+                    "id" => 30,
+                    "position" => 2,
+                    "attachment_content_type" => "image/jpeg",
+                    "attachment_file_name" => "ror_ringer_back.jpeg",
+                    "type" => "Spree::Image",
+                    "attachment_updated_at" => "2013-12-06T19:29:27.000Z",
+                    "attachment_width" => 360,
+                    "attachment_height" => 360,
+                    "alt" => nil,
+                    "viewable_type" => "Spree::Variant",
+                    "viewable_id" => 5,
+                    "attachment_url" => "/spree/products/30/product/ror_ringer_back.jpeg?1386358167"
                   }
                 ]
               }
             }
           ],
-          "payments": [
-            {
-              "id": 1,
-              "amount": "22.59",
-              "state": "completed",
-              "payment_method_id": 1,
-              "payment_method": {
-                "id": 1,
-                "name": "Credit Card",
-                "environment": "development"
-              }
-            }
+          "payments" => [
+
           ],
-          "shipments": [
-            {
-              "id": 1,
-              "tracking": null,
-              "number": "437516215",
-              "cost": "5.0",
-              "shipped_at": "2013-12-06T21:04:13.000Z",
-              "state": "shipped",
-              "order_id": "R123456789",
-              "stock_location_name": "default",
-              "shipping_rates": [
-                {
-                  "id": 1,
-                  "cost": "5.0",
-                  "selected": true,
-                  "shipment_id": 1,
-                  "shipping_method_id": 1
-                },
-                {
-                  "id": 2,
-                  "cost": "10.0",
-                  "selected": false,
-                  "shipment_id": 1,
-                  "shipping_method_id": 2
-                },
-                {
-                  "id": 3,
-                  "cost": "15.0",
-                  "selected": false,
-                  "shipment_id": 1,
-                  "shipping_method_id": 3
-                }
-              ],
-              "shipping_method": {
-                "name": "UPS Ground (USD)",
-                "tracking_url": null
-              },
-              "inventory_units": [
-                {
-                  "id": 1,
-                  "variant_id": 1,
-                  "state": "returned"
-                }
-              ]
-            }
+          "shipments" => [
+
           ],
-          "adjustments": [
-            {
-              "id": 1,
-              "amount": "0.8",
-              "label": "North America 5.0%",
-              "mandatory": false,
-              "eligible": true,
-              "originator_type": "Spree::TaxRate",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 3,
-              "amount": "5.0",
-              "label": "Shipping",
-              "mandatory": true,
-              "eligible": true,
-              "originator_type": "Spree::ShippingMethod",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 5,
-              "amount": "0.8",
-              "label": "Tax",
-              "mandatory": true,
-              "eligible": true,
-              "originator_type": "Spree::TaxRate",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 7,
-              "amount": "0.0",
-              "label": "Shipping",
-              "mandatory": true,
-              "eligible": true,
-              "originator_type": "Spree::ShippingMethod",
-              "adjustable_type": "Spree::Order"
-            },
-            {
-              "id": 13,
-              "amount": "-15.99",
-              "label": "RMA Credit",
-              "mandatory": null,
-              "eligible": true,
-              "originator_type": null,
-              "adjustable_type": "Spree::Order"
-            }
+          "adjustments" => [
+
           ],
-          "credit_cards": [
-            {
-              "id": 1,
-              "month": "12",
-              "year": "2014",
-              "cc_type": "visa",
-              "last_digits": "1111",
-              "first_name": "Sean",
-              "last_name": "Schofield",
-              "gateway_customer_profile_id": "BGS-1234",
-              "gateway_payment_profile_id": null
-            }
+          "credit_cards" => [
+
           ]
         }
       }

@@ -4,7 +4,7 @@ For a detailted explanation check out the [Spree Guides - Abandoned Carts Endpoi
 
 ## Save Cart
 
-* Saves cart message details to the database
+* Saves cart details to the database
 
 ## Remove Cart
 

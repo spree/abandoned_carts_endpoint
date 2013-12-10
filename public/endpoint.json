@@ -1,6 +1,6 @@
 {
     "name": "abandoned_carts",
-    "display": "Dotcom Distribution",
+    "display": "Abandoned Carts",
     "description": "Tracking abandoned carts and generating cart:abandoned messages",
     "help": "http://guides.spreecommerce.com/integration/abandoned_carts_integration.html",
     "icon_url": "abandoned_carts.png",
@@ -25,8 +25,7 @@
             },
             "recommends": {
                 "messages": ["cart:new", "cart:updated"]
-            },
-            "produces": {}
+            }
         },
         {
             "name": "match_cart",
@@ -70,6 +69,14 @@
             },
             "recommends": {
                 "messages": ["cart:abandoned"]
+            },
+            "produces": {
+                "messages": [
+                    {
+                        "message": "cart:abandoned",
+                        "schema": "/card_abandoned.json"
+                    }
+                ]
             }
         }        
     ]
