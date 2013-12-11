@@ -33,7 +33,7 @@ class Cart
     def abandoned(number_of_hours)
       abandonment_time = Time.now.utc - (number_of_hours.to_i * 60 * 60)
 
-      where(:last_activity_at.gt => abandonment_time, :abandoned_at => nil)
+      where(:last_activity_at.lt => abandonment_time, :abandoned_at => nil)
     end
   end  
 end
