@@ -36,7 +36,7 @@ class AbandonedCartsEndpoint < EndpointBase
         msg = match_cart_success_notification
       else
         code = 500
-        msg = match_cart_fail_notification(errors)
+        msg = match_cart_fail_notification
       end      
     rescue => e
       code = 500
@@ -100,6 +100,18 @@ class AbandonedCartsEndpoint < EndpointBase
           level: 'info',
           subject: "Successfully matched the new order to the cart",
           description: "Successfully matched the new order to the cart",
+        }
+      ]
+    }
+  end
+
+  def match_cart_fail_notification
+    { notifications:
+      [
+        { 
+          level: 'error',
+          subject: "Error: Unable to match the new order to a cart",
+          description: "Error: Unable to match the new order to a cart"
         }
       ]
     }
