@@ -10,18 +10,30 @@ class Cart
   validates_uniqueness_of :number
   validates_presence_of :number, :payload, :last_activity_at
 
-  class << self
-    def abandoned(number_of_hours)
-      abandonment_time = Time.now.utc - (number_of_hours.to_i * 60 * 60)
-
-      where(:last_activity_at.gt => abandonment_time, :abandoned_at => nil)
-    end
-  end
-
   def create_abandoned_message
     {
       message: 'cart:abandoned',
       payload: self.payload
     }
   end
+
+  def create_error_notification
+    { notifications:
+      [
+        { 
+          level: 'error',
+          subject: "Error: Unable to save a cart",
+          description: "Error(s): #{errors.messages.to_s}"
+        }
+      ]
+    }
+  end
+
+  class << self
+    def abandoned(number_of_hours)
+      abandonment_time = Time.now.utc - (number_of_hours.to_i * 60 * 60)
+
+      where(:last_activity_at.gt => abandonment_time, :abandoned_at => nil)
+    end
+  end  
 end

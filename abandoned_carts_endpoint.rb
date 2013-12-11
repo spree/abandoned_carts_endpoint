@@ -5,13 +5,12 @@ class AbandonedCartsEndpoint < EndpointBase
   
   Mongoid.load!("./config/mongoid.yml")
 
-  ## TODO Add payload, etc. validations to /save_cart and /match_cart
   post '/save_cart' do
     begin
-  	  cart = Cart.find_or_initialize_by(number: @message[:payload]['cart']['number'])
+  	  cart = Cart.find_or_initialize_by(number: cart_hash['number'])
       cart.attributes = { 
         payload:          @message[:payload],
-        last_activity_at: @message[:payload]['cart']['updated_at']
+        last_activity_at: cart_hash['updated_at']
       }
       
       if cart.save
@@ -19,12 +18,11 @@ class AbandonedCartsEndpoint < EndpointBase
         msg = save_cart_success_notification(cart.number)
       else
         code = 500        
-        errors = cart.errors.messages.to_s
-        msg = save_cart_fail_notification(errors)
+        msg = cart.create_error_notification
       end      
     rescue => e
       code = 500
-      msg = standard_error_notifications_hash(e)
+      msg = standard_error_notification(e)
     end
 
     process_result code, base_msg.merge(msg)
@@ -33,17 +31,17 @@ class AbandonedCartsEndpoint < EndpointBase
   post '/match_cart' do
     begin
       ## Would we still destroy a cart that has already been abandoned?
-      ## or we need to add :abandoned_at => nil to the .where clause
-      if Cart.where(number: @message[:payload]['order']['number']).destroy > 0
+      ## Or we should add :abandoned_at => nil to the .where clause to keep them?
+      if Cart.where(number: order_hash['number']).destroy > 0
         code = 200
-        msg = match_cart_success_notification
+        msg = match_cart_notification('info')
       else
         code = 500
-        msg = match_cart_fail_notification
+        msg = match_cart_notification('error')
       end      
     rescue => e
       code = 500
-      msg = standard_error_notifications_hash(e)
+      msg = standard_error_notification(e)
     end
 
     process_result code, base_msg.merge(msg)    
@@ -62,13 +60,21 @@ class AbandonedCartsEndpoint < EndpointBase
       code = 200
     rescue => e
       code = 500
-      msg = standard_error_notifications_hash(e)
+      msg = standard_error_notification(e)
     end
 
     process_result code, base_msg.merge(msg)
   end  
 
   private
+  def cart_hash
+    @message[:payload]['cart'] or raise InvalidParameters, "'cart' hash must be present in the payload"
+  end
+
+  def order_hash
+    @message[:payload]['order'] or raise InvalidParameters, "'order' hash must be present in the payload"
+  end
+
   def abandonment_period_hours
     @config['abandoned_carts.abandonment_period_hours'] or raise InvalidParameters, "'abandonment_period_hours' parameter must be passed in"
   end
@@ -77,7 +83,6 @@ class AbandonedCartsEndpoint < EndpointBase
   	{ 'message_id' => @message[:message_id] }
   end
 
-  ## TODO Refactor notifications
   def save_cart_success_notification(number)
     { notifications:
       [
@@ -90,20 +95,16 @@ class AbandonedCartsEndpoint < EndpointBase
     }
   end
 
-  def save_cart_fail_notification(errors)
+  def match_cart_notification(level)
+    msg = (level == 'info') ? "Successfully matched the new order to the cart" : "Error: Unable to match the new order to a cart"
     { notifications:
       [
-      	{ 
-          level: 'error',
-          subject: "Error: Unable to save a cart",
-          description: "Error(s): #{errors}",
-          backtrace: e.backtrace.to_a.join('\n\t')
-        }
+        { level: level, subject: msg, description: msg }
       ]
     }
-  end
+  end 
 
-  def standard_error_notifications_hash(e)
+  def standard_error_notification(e)
     { notifications:
       [
         { 
@@ -115,28 +116,4 @@ class AbandonedCartsEndpoint < EndpointBase
       ]
     }
   end
-
-  def match_cart_success_notification
-    { notifications:
-      [
-        { 
-          level: 'info',
-          subject: "Successfully matched the new order to the cart",
-          description: "Successfully matched the new order to the cart",
-        }
-      ]
-    }
-  end
-
-  def match_cart_fail_notification
-    { notifications:
-      [
-        { 
-          level: 'error',
-          subject: "Error: Unable to match the new order to a cart",
-          description: "Error: Unable to match the new order to a cart"
-        }
-      ]
-    }
-  end  
 end
