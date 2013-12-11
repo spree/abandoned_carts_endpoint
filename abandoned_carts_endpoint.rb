@@ -29,8 +29,22 @@ class AbandonedCartsEndpoint < EndpointBase
     process_result code, base_msg.merge(msg)
   end
 
-  # post '/match_cart' do
-  # end
+  post '/match_cart' do
+    begin
+      if Cart.where(number: @message[:payload]['order']['number']).destroy > 0
+        code = 200
+        msg = match_cart_success_notification
+      else
+        code = 500
+        msg = match_cart_fail_notification(errors)
+      end      
+    rescue => e
+      code = 500
+      msg = standard_error_notifications_hash(e)
+    end
+
+    process_result code, base_msg.merge(msg)    
+  end
 
   # post '/abandon_carts' do
   # end  
@@ -40,6 +54,7 @@ class AbandonedCartsEndpoint < EndpointBase
   	{ 'message_id' => @message[:message_id] }
   end
 
+  ## TODO Refactor notifications
   def save_cart_success_notification(number)
     { notifications:
       [
@@ -73,6 +88,18 @@ class AbandonedCartsEndpoint < EndpointBase
           subject: "#{e.class}: #{e.message.strip}",
           description: "#{e.class}: #{e.message.strip}",
           backtrace: e.backtrace.to_a.join('\n\t')
+        }
+      ]
+    }
+  end
+
+  def match_cart_success_notification
+    { notifications:
+      [
+        { 
+          level: 'info',
+          subject: "Successfully matched the new order to the cart",
+          description: "Successfully matched the new order to the cart",
         }
       ]
     }
