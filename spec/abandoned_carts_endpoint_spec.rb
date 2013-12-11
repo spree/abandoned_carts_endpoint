@@ -4,8 +4,8 @@ describe AbandonedCartsEndpoint do
   let(:message) {
     {
       'store_id' => '123229227575e4645c000001',
-      'message_id' => 'abc',
-      'payload' => Factories.payload({'parameters' => Factories.config})
+      'message_id' => '123229227575e4645c000002',
+      'payload' => Factories.cart_new_payload.merge({'parameters' => Factories.config})
     }
   }
 
@@ -17,41 +17,35 @@ describe AbandonedCartsEndpoint do
     {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"}
   end
 
-  # it '/send_shipment succeeds with existing products' do
-  #   VCR.use_cassette('dotcom_order_success') do
-  #     post '/send_shipment', message.to_json, auth
+  context "/save_cart" do
+    it 'saves a cart' do
+      expect {
+        post '/save_cart', message.to_json, auth
+      }.to change(Cart, :count).by(1)
 
-  #     last_response.status.should eq(200)
-  #     last_response.body.should match("message_id")
-  #     last_response.body.should match("notifications")
-  #     last_response.body.should match("Successfully sent")
-  #   end
-  # end
+      last_response.status.should eq(200)
 
-  # it '/send_shipment fails with non-existing products' do
-  #   VCR.use_cassette('dotcom_order_fail') do
-  #     # Replacing valid items with non-existent ones
-  #     message['payload'] = Factories.payload({'parameters' => Factories.config}, Factories.non_existent_items)
+      last_response.body.should match("message_id")
+      last_response.body.should match("notifications")
+      last_response.body.should match("Successfully saved a cart")
+    end
 
-  #     post '/send_shipment', message.to_json, auth
+    it "returns error notification when cart won't save" do
+      # Nil-ing out updated_at field to fail Cart validations at save
+      message['payload']['cart']['updated_at'] = nil
 
-  #     last_response.status.should eq(500)
-  #     last_response.body.should match("message_id")
-  #     last_response.body.should match("notifications")
-  #     last_response.body.should match("Invalid Item.")
-  #   end
-  # end
+      expect {
+        post '/save_cart', message.to_json, auth
+      }.not_to change(Cart, :count)
 
-  # it '/send_shipment fails with non-existing products' do
-  #   VCR.use_cassette('dotcom_shipment_success') do
-  #     Time.stub(:now => (Time.new 2013,10,24,18,29,05,'-04:00'))
-  #     # Replacing valid items with non-existent ones
-  #     post '/tracking', message.to_json, auth
+      last_response.status.should eq(500)
+      last_response.body.should match("error") 
+      last_response.body.should match("Error: Unable to save a cart")
+      last_response.body.should match("last_activity_at") 
+      last_response.body.should match("can't be blank") 
+    end
+  end
 
-  #     last_response.status.should eq(200)
-  #     last_response.body.should match("message_id")
-  #     last_response.body.should match("messages")
-  #     last_response.body.should match("parameters")
-  #   end
-  # end
+  context "/match_cart"
+  context "/abandon_carts"
 end

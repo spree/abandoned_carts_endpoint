@@ -3,39 +3,12 @@ module Factories
 
     def config(args={})
       [
-        {
-          'name' => 'dotcom.api_key', 'value' => api_key
-        },
-        {
-          'name' => 'dotcom.password', 'value' => password
-        },
-        {
-          'name' => 'dotcom.last_polling_datetime', 'value' => '2011-01-01'
-        },
-        {
-          'name' => 'dotcom.shipping_lookup',
-          'value' => [
-            { 'name' => 'UPS Ground (USD)', 'value' => '03'},
-            { 'name' => 'UPS Two Day (USD)', 'value' => '02'},
-            { 'name' => 'UPS One Day (USD)', 'value' => '01'}
-          ]
-        }
+        { 'name' => 'abandoned_carts.abandonment_period_hours', 'value' => 1 }
       ]
     end
 
     def processed_config
-      { 
-        'abandoned_carts.api_key' => '',
-        'abandoned_carts.password' => '',
-        'abandoned_carts.last_polling_datetime' => '2011-01-01',
-        "abandoned_carts.shipping_lookup"=> [
-          {
-            "UPS Ground (USD)" => "03",
-            "UPS Two Day (USD)" => "02",
-            "UPS One Day (USD)" => "01"
-          }
-        ]
-      }
+      { 'abandoned_carts.abandonment_period_hours' => 1 }
     end
 
     def cart_new_payload
