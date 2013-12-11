@@ -10,18 +10,7 @@
             "path": "/save_cart",
             "description": "Saves the cart details",
             "requires": {
-                "parameters": [
-                    {
-                        "name": "api_key",
-                        "description": "API key",
-                        "data_type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "description": "password",
-                        "data_type": "password"
-                    }                   
-                ]
+                "parameters": []
             },
             "recommends": {
                 "messages": ["cart:new", "cart:updated"]
@@ -32,18 +21,7 @@
             "path": "/match_cart",
             "description": "Matching carts with new orders",
             "requires": {
-                "parameters": [
-                    {
-                        "name": "api_key",
-                        "description": "API key",
-                        "data_type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "description": "password",
-                        "data_type": "string"
-                    }
-                ]
+                "parameters": []
             },
             "recommends": {
                 "messages": ["order:new"]
@@ -56,19 +34,14 @@
             "requires": {
                 "parameters": [
                     {
-                        "name": "api_key",
-                        "description": "API key",
-                        "data_type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "description": "password",
-                        "data_type": "string"
+                        "name": "abandonment_period_hours",
+                        "description": "Number of hours to elapse upon when carts will be considered as 'abandoned'",
+                        "data_type": "integer"
                     }
                 ]
             },
             "recommends": {
-                "messages": ["cart:abandoned"]
+                "messages": ["abandoned_carts:poll"]
             },
             "produces": {
                 "messages": [

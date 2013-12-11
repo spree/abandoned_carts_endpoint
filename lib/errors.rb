@@ -1,0 +1,1 @@
+class InvalidParameters < StandardError; end

@@ -46,10 +46,30 @@ class AbandonedCartsEndpoint < EndpointBase
     process_result code, base_msg.merge(msg)    
   end
 
-  # post '/abandon_carts' do
-  # end  
+  post '/abandon_carts' do
+    begin
+      messages = []
+
+      abandoned_carts = Cart.abandoned(abandonment_period_hours).each do |cart|
+        messages << cart.create_abandoned_message
+      end
+      abandoned_carts.update_all(abandoned_at: Time.now.utc)
+
+      msg = { :messages => messages}
+      code = 200
+    rescue => e
+      code = 500
+      msg = standard_error_notifications_hash(e)
+    end
+
+    process_result code, base_msg.merge(msg)
+  end  
 
   private
+  def abandonment_period_hours
+    @config['abandoned_carts.abandonment_period_hours'] or raise InvalidParameters, "'abandonment_period_hours' parameter must be passed in"
+  end
+
   def base_msg
   	{ 'message_id' => @message[:message_id] }
   end
