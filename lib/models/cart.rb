@@ -12,13 +12,12 @@ class Cart
 
   class << self
     def abandoned(number_of_hours)
-      abandonment_time = Time.now.utc - (number_of_hours * 60 * 60)
+      abandonment_time = Time.now.utc - (number_of_hours.to_i * 60 * 60)
 
-      where(:last_activity_at.gt => abandonment_time)
+      where(:last_activity_at.gt => abandonment_time, :abandoned_at => nil)
     end
   end
 
-  private
   def create_abandoned_message
     {
       message: 'cart:abandoned',

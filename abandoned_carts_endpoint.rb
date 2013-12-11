@@ -5,6 +5,7 @@ class AbandonedCartsEndpoint < EndpointBase
   
   Mongoid.load!("./config/mongoid.yml")
 
+  ## TODO Add payload, etc. validations to /save_cart and /match_cart
   post '/save_cart' do
     begin
   	  cart = Cart.find_or_initialize_by(number: @message[:payload]['cart']['number'])
@@ -31,6 +32,8 @@ class AbandonedCartsEndpoint < EndpointBase
 
   post '/match_cart' do
     begin
+      ## Would we still destroy a cart that has already been abandoned?
+      ## or we need to add :abandoned_at => nil to the .where clause
       if Cart.where(number: @message[:payload]['order']['number']).destroy > 0
         code = 200
         msg = match_cart_success_notification
