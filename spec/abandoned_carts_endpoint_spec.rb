@@ -9,22 +9,19 @@ describe AbandonedCartsEndpoint do
     }
   }
 
-  def app
-    AbandonedCartsEndpoint
-  end
+  def app; AbandonedCartsEndpoint; end
 
   def auth
     {'HTTP_X_AUGURY_TOKEN' => 'x123', "CONTENT_TYPE" => "application/json"}
   end
 
   context "/save_cart" do
-    it 'saves a cart' do
+    it "saves a cart" do
       expect {
         post '/save_cart', message.to_json, auth
       }.to change(Cart, :count).by(1)
 
       last_response.status.should eq(200)
-
       last_response.body.should match("message_id")
       last_response.body.should match("notifications")
       last_response.body.should match("Successfully saved a cart")
@@ -44,8 +41,46 @@ describe AbandonedCartsEndpoint do
       last_response.body.should match("last_activity_at") 
       last_response.body.should match("can't be blank") 
     end
+
+    it "raises InvalidParameters when cart hash is missed" do
+      message['payload'].delete('cart')
+
+      post '/save_cart', message.to_json, auth
+      last_response.status.should eq(500)
+
+      last_response.body.should match("error") 
+      last_response.body.should match("InvalidParameters")
+      last_response.body.should match("'cart' hash must be present in the payload") 
+    end
   end
 
-  context "/match_cart"
+  context "/match_cart" do
+    let(:cart) { Fabricate(:cart) }
+
+    it "should destroy matching cart" do
+      cart.save; Fabricate(:cart).save
+      message['payload'] = Factories.order_new_payload(cart.number).merge({'parameters' => Factories.config})
+
+      expect {
+        post '/match_cart', message.to_json, auth
+      }.to change(Cart, :count).by(-1)
+      last_response.status.should eq(200)
+      last_response.body.should match("info") 
+      last_response.body.should match("Successfully matched the new order to the cart")
+    end
+
+    it "should not destroy any carts" do
+      cart.save; Fabricate(:cart).save
+      message['payload'] = Factories.order_new_payload.merge({'parameters' => Factories.config})
+
+      expect {
+        post '/match_cart', message.to_json, auth
+      }.to_not change(Cart, :count)
+      last_response.status.should eq(500)
+      last_response.body.should match("error") 
+      last_response.body.should match("Error: Unable to match the new order to a cart")
+    end    
+  end
+
   context "/abandon_carts"
 end

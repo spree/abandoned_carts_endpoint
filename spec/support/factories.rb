@@ -11,6 +11,14 @@ module Factories
       { 'abandoned_carts.abandonment_period_hours' => 1 }
     end
 
+    def order_new_payload(number = nil)
+      {
+        "order" => {
+          "number" => (number || "R257883284")
+        }
+      }
+    end
+
     def cart_new_payload
       {
         "cart" => {
