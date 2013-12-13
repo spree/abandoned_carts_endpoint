@@ -82,12 +82,12 @@ describe AbandonedCartsEndpoint do
     end    
   end
 
-  context "/abandon_carts" do
+  context "/poll" do
     it "should abandon carts" do
       abandoned_cart = Fabricate(:cart, {last_activity_at: (Time.now.utc - 7200)}) # abandoned
       abandoned_cart.abandoned_at.should be_nil
-      # binding.pry
-      post '/abandon_carts', message.to_json, auth
+      
+      post '/poll', message.to_json, auth
 
       last_response.status.should eq(200)
       last_response.body.should match("messages") 

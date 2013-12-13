@@ -28,9 +28,9 @@
             }
         },
         {
-            "name": "abandon_carts",
-            "path": "/abandon_carts",
-            "description": "Tracking which carts are abandoned and generating abandoned cart messages",
+            "name": "poll",
+            "path": "/poll",
+            "description": "Polling for abandoned carts and generating cart:abandoned messages",
             "requires": {
                 "parameters": [
                     {

@@ -47,7 +47,7 @@ class AbandonedCartsEndpoint < EndpointBase
     process_result code, base_msg.merge(msg)    
   end
 
-  post '/abandon_carts' do
+  post '/poll' do
     begin
       messages = []
 
