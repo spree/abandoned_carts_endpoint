@@ -2,14 +2,15 @@
 
 For a detailted explanation check out the [Spree Guides - Abandoned Carts Endpoint](http://guides.spreecommerce.com/integration/abandoned_carts_integration.html).
 
-## Save Cart
+## Save Cart (/save_cart)
 
-* Saves cart details to the database
+* Saves the cart (number, whole payload, last_activity_at and abandoned_at fields) to MongoDB
 
-## Remove Cart
+## Match Cart (/match_cart)
 
-* Matches up the cart with the order number and removes the card from the database
+* Finds a cart that matches the new order number and removes it from the database
 
-## Flush/Abandon Carts
+## Poll for Abandoned Carts (/poll)
 
-* Checks the database to see which carts are considered to be abandoned and generates cart:abandoned messages
+* Polls for carts that have been abandoned and generates cart:abandoned messages
+* Uses `abandonment_period_hours` parameter to determine which carts should be considered as abandoned.
