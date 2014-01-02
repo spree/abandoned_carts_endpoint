@@ -8,7 +8,8 @@ class Cart
   field :abandoned_at, type: DateTime, :default => nil
 
   index({ created_at: 1 }, { expire_after_seconds: 7889230 }) # 3 months in seconds
-
+  index({ number: 1 })
+  
   validates_uniqueness_of :number
   validates_presence_of :number, :payload, :last_activity_at
 
