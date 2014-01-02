@@ -7,8 +7,15 @@ class Cart
   field :last_activity_at, type: DateTime
   field :abandoned_at, type: DateTime, :default => nil
 
+  index({ created_at: 1 }, { expire_after_seconds: 7889230 }) # 3 months in seconds
+
   validates_uniqueness_of :number
   validates_presence_of :number, :payload, :last_activity_at
+
+  # Create indexes after a record is created
+  after_save do
+    Cart.create_indexes
+  end
 
   def create_abandoned_message
     {
