@@ -9,7 +9,7 @@ class AbandonedCartsEndpoint < EndpointBase
     begin
   	  cart = Cart.find_or_initialize_by(number: cart_hash['number'])
       cart.attributes = { 
-        payload:          @message[:payload],
+        payload:          payload_without_parameters,
         last_activity_at: cart_hash['updated_at']
       }
       
@@ -67,6 +67,10 @@ class AbandonedCartsEndpoint < EndpointBase
   end  
 
   private
+  def payload_without_parameters
+    @message[:payload].tap {|x| x.delete(:parameters)}
+  end
+
   def cart_hash
     @message[:payload]['cart'] or raise InvalidParameters, "'cart' hash must be present in the payload"
   end
