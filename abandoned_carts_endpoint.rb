@@ -10,9 +10,12 @@ class AbandonedCartsEndpoint < EndpointBase
   	  cart = Cart.find_or_initialize_by(number: cart_hash['number'])
       cart.attributes = { 
         payload:          payload_without_parameters,
-        last_activity_at: cart_hash['updated_at']
+        last_activity_at: cart_hash['updated_at'],
+        # Even though a cart might have been abandoned,
+        # if there's any activity on it - make it active again
+        abandoned_at:     nil
       }
-      
+
       if cart.save
         code = 200
         msg = save_cart_success_notification(cart.number)
@@ -87,13 +90,21 @@ class AbandonedCartsEndpoint < EndpointBase
   	{ 'message_id' => @message[:message_id] }
   end
 
+  def message_name
+    @message['message']
+  end
+
+  def cart_action
+    message_name == 'cart:new' ? 'saved' : 'updated'
+  end
+
   def save_cart_success_notification(number)
     { notifications:
       [
         { 
           level: 'info',
-          subject: "Successfully saved a cart with number #{number}",
-          description: "Successfully saved a cart with number #{number}"
+          subject: "Successfully #{cart_action} a cart with the order number #{number}",
+          description: "Successfully #{cart_action} a cart with the order number #{number}"
         }
       ]
     }
