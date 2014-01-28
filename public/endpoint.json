@@ -41,7 +41,11 @@
                 ]
             },
             "recommends": {
-                "messages": ["abandoned_carts:poll"]
+                "messages": ["abandoned_carts:poll"],
+                "schedule": { "count": 30, "interval": "minutes" },
+                "options": {
+                  "retries_allowed": true
+                }
             },
             "produces": {
                 "messages": [
