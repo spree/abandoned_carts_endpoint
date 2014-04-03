@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'sinatra-contrib'
+gem 'tilt', '~> 1.4.1'
+gem 'tilt-jbuilder', require: 'sinatra/jbuilder'
+
 gem 'capistrano'
 
 gem 'json'
@@ -29,4 +31,4 @@ group :production do
   gem 'unicorn'
 end
 
-gem 'endpoint_base', :git => 'https://github.com/spree/endpoint_base.git'
+gem 'endpoint_base', github: 'spree/endpoint_base'

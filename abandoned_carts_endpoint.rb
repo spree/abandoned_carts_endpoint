@@ -1,6 +1,9 @@
+require "sinatra"
+require "endpoint_base"
+
 Dir['./lib/**/*.rb'].each(&method(:require))
 
-class AbandonedCartsEndpoint < EndpointBase
+class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base 
   set :logging, true
   
   Mongoid.load!("./config/mongoid.yml")
