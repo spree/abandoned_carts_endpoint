@@ -2,13 +2,11 @@ module Factories
   class << self
 
     def config(args={})
-      [
-        { 'name' => 'abandoned_carts.abandonment_period_hours', 'value' => 1 }
-      ]
+      { 'abandoned_carts_abandonment_period_hours' => 1 }
     end
 
-    def processed_config
-      { 'abandoned_carts.abandonment_period_hours' => 1 }
+    def processed_config_
+      { 'abandoned_carts_abandonment_period_hours' => 1 }
     end
 
     def order_new_payload(number = nil)

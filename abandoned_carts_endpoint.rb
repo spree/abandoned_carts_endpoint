@@ -21,7 +21,7 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
 
       if cart.save
         code = 200
-        msg = save_cart_success_notification(cart.number)
+        msg = "Successfully saved a cart with the order number #{cart.number}"
       else
         code = 500        
         msg = cart.create_error_notification
@@ -31,7 +31,7 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
       msg = standard_error_notification(e)
     end
 
-    process_result code, base_msg.merge(msg)
+    result code, msg
   end
 
   post '/match_cart' do
@@ -50,11 +50,11 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
       msg = standard_error_notification(e)
     end
 
-    process_result code, base_msg.merge(msg)    
+    process_result code, msg
   end
 
   post '/poll' do
-    begin
+    # begin
       messages = []
 
       abandoned_carts = Cart.abandoned(abandonment_period_hours).each do |cart|
@@ -62,55 +62,35 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
       end
       abandoned_carts.update_all(abandoned_at: Time.now.utc)
 
-      msg = { :messages => messages}
+      msg = { :messages => messages }
       code = 200
-    rescue => e
-      code = 500
-      msg = standard_error_notification(e)
-    end
+    # rescue => e
+    #   code = 500
+    #   msg = standard_error_notification(e)
+    # end
 
-    process_result code, base_msg.merge(msg)
+    process_result code, msg
   end  
 
   private
   def payload_without_parameters
-    @message[:payload].tap {|x| x.delete(:parameters)}
+    @payload.tap {|x| x.delete(:parameters)}
   end
 
   def cart_hash
-    @message[:payload]['cart'] or raise InvalidParameters, "'cart' hash must be present in the payload"
+    @payload['cart'] or raise InvalidParameters, "'cart' hash must be present in the payload"
   end
 
   def order_hash
-    @message[:payload]['order'] or raise InvalidParameters, "'order' hash must be present in the payload"
+    @payload['order'] or raise InvalidParameters, "'order' hash must be present in the payload"
   end
 
   def abandonment_period_hours
-    @config['abandoned_carts.abandonment_period_hours'] or raise InvalidParameters, "'abandonment_period_hours' parameter must be passed in"
-  end
-
-  def base_msg
-  	{ 'message_id' => @message[:message_id] }
-  end
-
-  def message_name
-    @message['message']
+    @config['abandoned_carts_abandonment_period_hours'] or raise InvalidParameters, "'abandonment_period_hours' parameter must be passed in"
   end
 
   def cart_action
     message_name == 'cart:new' ? 'saved' : 'updated'
-  end
-
-  def save_cart_success_notification(number)
-    { notifications:
-      [
-        { 
-          level: 'info',
-          subject: "Successfully #{cart_action} a cart with the order number #{number}",
-          description: "Successfully #{cart_action} a cart with the order number #{number}"
-        }
-      ]
-    }
   end
 
   def match_cart_notification(level)
