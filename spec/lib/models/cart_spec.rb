@@ -36,15 +36,6 @@ describe Cart do
     end
   end
 
-  context "instance methods" do
-    it "#create_error_notification has necessary keys" do
-      msg = cart.create_error_notification
-      msg[:notifications].first.should have_key :level
-      msg[:notifications].first.should have_key :subject
-      msg[:notifications].first.should have_key :description
-    end
-  end
-
   context "abandoned carts" do
     it "#abandoned should return only abandoned carts" do
       abandoned_cart = Fabricate(:cart, {last_activity_at: (Time.now.utc - 7200)}) # minus 2 hours

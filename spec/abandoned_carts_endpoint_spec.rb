@@ -7,14 +7,14 @@ describe AbandonedCartsEndpoint do
 
   def app; AbandonedCartsEndpoint; end
 
-  context "/save_cart" do
+  context "/add_cart" do
     it "saves a cart" do
       expect {
-        post '/save_cart', message.to_json, auth
+        post '/add_cart', message.to_json, auth
       }.to change(Cart, :count).by(1)
 
       last_response.status.should eq(200)
-      expect(json_response[:summary]).to match("Successfully saved a cart")
+      expect(json_response[:summary]).to match("Successfully created a cart")
     end
 
     it "returns error notification when cart won't save" do
@@ -22,7 +22,7 @@ describe AbandonedCartsEndpoint do
       message['cart']['updated_at'] = nil
 
       expect {
-        post '/save_cart', message.to_json, auth
+        post '/add_cart', message.to_json, auth
       }.not_to change(Cart, :count)
 
       last_response.status.should eq(500)
@@ -34,12 +34,9 @@ describe AbandonedCartsEndpoint do
 
     it "raises InvalidParameters when cart hash is missed" do
       message.delete('cart')
+      post '/add_cart', message.to_json, auth
 
-      post '/save_cart', message.to_json, auth
       last_response.status.should eq(500)
-
-      last_response.body.should match("error") 
-      last_response.body.should match("InvalidParameters")
       last_response.body.should match("'cart' hash must be present in the payload") 
     end
   end
@@ -57,7 +54,6 @@ describe AbandonedCartsEndpoint do
       }.to change(Cart, :count).by(-1)
 
       last_response.status.should eq(200)
-      last_response.body.should match("info") 
       last_response.body.should match("Successfully matched the new order to the cart")
     end
 
@@ -71,7 +67,6 @@ describe AbandonedCartsEndpoint do
       }.to_not change(Cart, :count)
 
       last_response.status.should eq(500)
-      last_response.body.should match("error") 
       last_response.body.should match("Error: Unable to match the new order to a cart")
     end    
   end

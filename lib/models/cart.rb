@@ -25,16 +25,8 @@ class Cart
     }
   end
 
-  def create_error_notification
-    { notifications:
-      [
-        { 
-          level: 'error',
-          subject: "Error: Unable to save a cart",
-          description: "Error(s): #{errors.messages.to_s}"
-        }
-      ]
-    }
+  def error_notification
+    "Error: Unable to save a cart. #{errors.messages.to_s}"
   end
 
   class << self
