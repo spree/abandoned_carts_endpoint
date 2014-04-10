@@ -1,23 +1,9 @@
-APP_ROOT = "/data/abandoned_carts"
-
 worker_processes 3
-working_directory APP_ROOT + "/current"
-
 timeout 180
-
-listen APP_ROOT + "/shared/sockets/unicorn.sock", :backlog => 1024
-
-pid APP_ROOT + "/shared/pids/unicorn.pid"
-
-stderr_path APP_ROOT + "/shared/log/unicorn.stderr.log"
 
 preload_app true
 
 GC.respond_to?(:copy_on_write_friendly=) and  GC.copy_on_write_friendly = true
-
-before_exec do |server|
-  ENV["BUNDLE_GEMFILE"] = APP_ROOT + "/current/Gemfile"
-end
 
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
