@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/spree/endpoint_base.git
-  revision: fefcdcb520559534584945885ed8b7e28dffc437
+  revision: a9a9f4f91e3c42d88a3f8fe4182877161d050e1a
   specs:
     endpoint_base (0.3)
       activesupport
@@ -46,9 +46,9 @@ GEM
       guard (>= 2.1.1)
       rspec (~> 2.14)
     i18n (0.6.9)
-    jbuilder (2.0.5)
-      activesupport (>= 3.0.0)
-      multi_json (>= 1.2.0)
+    jbuilder (2.0.6)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     json (1.8.1)
     kgio (2.8.1)
     listen (2.2.0)
@@ -64,7 +64,7 @@ GEM
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
     moped (1.5.1)
-    multi_json (1.8.2)
+    multi_json (1.9.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
