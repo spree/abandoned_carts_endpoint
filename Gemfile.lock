@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/spree/endpoint_base.git
-  revision: a9a9f4f91e3c42d88a3f8fe4182877161d050e1a
+  revision: f6c1859af1175bd4e29aa36823c8b02a2bb722c2
   specs:
     endpoint_base (0.3)
       activesupport
@@ -45,6 +45,8 @@ GEM
     guard-rspec (4.0.3)
       guard (>= 2.1.1)
       rspec (~> 2.14)
+    honeybadger (1.13.0)
+      json
     i18n (0.6.9)
     jbuilder (2.0.6)
       activesupport (>= 3.0.0, < 5)
@@ -134,6 +136,7 @@ DEPENDENCIES
   fabrication
   foreman
   guard-rspec
+  honeybadger
   json
   mongoid (= 3.1.6)
   nokogiri
