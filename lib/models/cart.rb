@@ -18,6 +18,13 @@ class Cart
     Cart.create_indexes
   end
 
+  before_validation do
+    if new_record? && id.present?
+      self.number = self.id
+      self.id = nil
+    end
+  end
+
   def error_notification
     "Error: Unable to save a cart. #{errors.messages.to_s}"
   end
