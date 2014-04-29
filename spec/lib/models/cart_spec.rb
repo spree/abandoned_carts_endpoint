@@ -28,14 +28,6 @@ describe Cart do
     cart.should_not be_valid
   end
 
-  context "instance methods" do
-    it "#create_abandoned_message returns necessary hash" do
-      msg = cart.create_abandoned_message
-      msg[:message].should eq('cart:abandoned')
-      msg[:payload].should eq(cart.payload)
-    end
-  end
-
   context "abandoned carts" do
     it "#abandoned should return only abandoned carts" do
       abandoned_cart = Fabricate(:cart, {last_activity_at: (Time.now.utc - 7200)}) # minus 2 hours

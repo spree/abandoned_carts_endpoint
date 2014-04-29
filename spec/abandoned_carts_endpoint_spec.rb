@@ -79,8 +79,6 @@ describe AbandonedCartsEndpoint do
       post '/poll', message.to_json, auth
       last_response.status.should eq(200)
 
-      last_response.body.should match("messages") 
-      last_response.body.should match("cart:abandoned")
       last_response.body.should match(abandoned_cart.payload['cart']['number'])
       Cart.find(abandoned_cart.id).abandoned_at.should_not be_nil
     end

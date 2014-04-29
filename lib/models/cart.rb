@@ -18,13 +18,6 @@ class Cart
     Cart.create_indexes
   end
 
-  def create_abandoned_message
-    {
-      message: 'cart:abandoned',
-      payload: self.payload
-    }
-  end
-
   def error_notification
     "Error: Unable to save a cart. #{errors.messages.to_s}"
   end

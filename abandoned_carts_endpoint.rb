@@ -56,14 +56,12 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
   end
 
   post '/poll' do
-    messages = []
     abandoned_carts = Cart.abandoned(abandonment_period_hours).each do |cart|
-      messages << cart.create_abandoned_message
+      add_object :cart, cart.payload
     end
     abandoned_carts.update_all(abandoned_at: Time.now.utc)
 
-    msg = { :messages => messages }
-    result 200, msg
+    result 200, "#{abandoned_carts.count} abandoned carts found"
   end
 
   private
