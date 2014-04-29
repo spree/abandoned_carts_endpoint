@@ -11,7 +11,7 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
   Mongoid.load!("./config/mongoid.yml")
 
   post '/add_cart' do
-    cart = Cart.find_or_initialize_by(number: cart_hash['number'])
+    cart = Cart.find_or_initialize_by(number: cart_hash['number'] || cart_hash['id'])
 
     cart.attributes = {
       payload:          payload_without_parameters,
@@ -29,7 +29,7 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
   end
 
   post '/update_cart' do
-    cart = Cart.find_or_initialize_by(number: cart_hash['number'])
+    cart = Cart.find_or_initialize_by(number: cart_hash['number'] || cart_hash['id'])
     cart.attributes = { 
       payload:          payload_without_parameters,
       last_activity_at: cart_hash['updated_at'],
@@ -48,7 +48,7 @@ class AbandonedCartsEndpoint < EndpointBase::Sinatra::Base
   post '/match_cart' do
     ## Would we still destroy a cart that has already been abandoned?
     ## Or we should add :abandoned_at => nil to the .where clause to keep them?
-    if Cart.where(number: order_hash['number']).destroy > 0
+    if Cart.where(number: order_hash['number'] || order_hash['id']).destroy > 0
       result 200, "Successfully matched the new order to the cart"
     else
       result 500, "Error: Unable to match the new order to a cart"
