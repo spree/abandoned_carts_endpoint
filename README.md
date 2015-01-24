@@ -1,3 +1,7 @@
+**This endpoint is deprecated.**
+
+Original README contents follows:
+
 # Abandoned Carts Endpoint
 
 For a detailted explanation check out the [Spree Guides - Abandoned Carts Endpoint](http://guides.spreecommerce.com/integration/abandoned_carts_integration.html).
